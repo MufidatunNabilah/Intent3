@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
                 openWebPage("http://www.smktelkom-mlg.sch.id/");
             }
         });
+
+        findViewById(R.id.imageViewCamera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                capturePhoto();
+            }
+        });
+
+    }
+    private void capturePhoto() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
     private void openWebPage(String url) {
